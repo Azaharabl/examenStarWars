@@ -12,6 +12,24 @@ public abstract class Nave {
     public  static int numeroNaves =0;
     protected Bando bando;
     protected LocalDateTime fecha;
+    protected int fila;
+    protected int columna;
+
+    public int getFila() {
+        return fila;
+    }
+
+    public void setFila(int fila) {
+        this.fila = fila;
+    }
+
+    public int getColumna() {
+        return columna;
+    }
+
+    public void setColumna(int columna) {
+        this.columna = columna;
+    }
 
     public Nave(int torpedosProtonicos, Bando bando, LocalDateTime fecha) {
         this.torpedosProtonicos = torpedosProtonicos;

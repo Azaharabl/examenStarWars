@@ -105,7 +105,7 @@ public class ControladorDeGuerra {
         return pila;
     }
 
-    public void rellenarEspacio(Matriz espacio, Cola c, Pila p) {
+    public void rellenarEspacio(Matriz<Nave> espacio, Cola<Nave> c, Pila<Nave> p) {
         //impares impero-cola, pares republica-pila
         for (int i = 0; i < espacio.getFilas(); i++) {
             for (int j = 0; j <espacio.getColumnas() ; j++) {
@@ -113,9 +113,15 @@ public class ControladorDeGuerra {
                 if(espacio.get(i,j)==null) {
                     //si es par
                     if (j % 2 == 0) {
-                        espacio.set(i, j, c.desencolar());
+                        Nave n = c.desencolar();
+                        n.setFila(i);
+                        n.setColumna(j);
+                        espacio.set(i, j, n);
                     } else {
-                        espacio.set(i, j, p.pop());
+                        Nave n = p.pop();
+                        n.setFila(i);
+                        n.setColumna(j);
+                        espacio.set(i, j, n);
                     }
                 }
             }
@@ -146,9 +152,40 @@ public class ControladorDeGuerra {
     public void luchanNaves(Matriz espacio) {
 
         Nave n= elegirNave(espacio);
-        Nave n2;
+
+        Nave n2 =elegirNaveContraria(espacio, n);
+
         boolean navesDistintoBando =false;
-        //ellegir nave para luchar
+
+        if (n instanceof ILucha){
+            boolean ganoBatalla = ((ILucha) n).lucha(n2);
+
+            if(ganoBatalla){
+                //se elimina nave 2 y se mueve nave 1 a su sitio
+                int filaN2 = n2.getFila();
+                int columnaN2 = n2.getColumna();
+                espacio.set(filaN2,columnaN2,null);
+
+
+                n.setFila(filaN2);
+                n.setColumna(columnaN2);
+                espacio.set(filaN2,columnaN2,n);
+
+            }else{
+                int filaN = n.getFila();
+                int columnaN = n.getColumna();
+                espacio.set(filaN,columnaN,null);
+            }
+
+        }
+
+
+
+    }
+
+    private Nave elegirNaveContraria(Matriz espacio, Nave n) {
+        Nave n2;
+        boolean navesDistintoBando;
         do {
             n2 = elegirNave(espacio);
 
@@ -157,18 +194,7 @@ public class ControladorDeGuerra {
             }else{
                 navesDistintoBando =true;
             }
-        }while(n==n2 && !navesDistintoBando);
-
-        if (n instanceof ILucha){
-            boolean ganoBatalla = ((ILucha) n).lucha(n2);
-
-            if(ganoBatalla){
-                //se elimina nave 2 y se mueve nave 1 a su sitio
-                
-            }
-        }
-
-
-
+        }while(n ==n2 && !navesDistintoBando);
+        return n2;
     }
 }
