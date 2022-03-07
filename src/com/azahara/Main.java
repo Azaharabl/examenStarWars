@@ -2,6 +2,9 @@ package com.azahara;
 
 import com.azahara.Naves.Corellian;
 import com.azahara.Naves.Nave;
+import com.azahara.TDA.Cola;
+import com.azahara.TDA.Matriz;
+import com.azahara.TDA.Pila;
 
 public class Main {
 
@@ -14,19 +17,20 @@ public class Main {
         int temporizador = 0;
         boolean guerraFin = false;
 
-        cont.iniciarEspacioDeGuerra(TAMAÑO);
+        Matriz espacio = cont.iniciarEspacioDeGuerra(TAMAÑO);
 
-        cont.crearNavesDeGuerra();
+        Cola c = cont.crearNavesDeGuerraImperio();
 
-        cont.rellenarEspacio();
+        Pila p =cont.crearNavesDeGuerraRepublica();
+
+        cont.rellenarEspacio(espacio,c,p);
 
         do {
 
-            Nave n= cont.elegirNave();
 
-            cont.lucha(n);
+           cont.luchanNaves(espacio);
 
-            if(temporizador%5){cont.rellenarEspacio();};
+            if(0==temporizador%5){cont.rellenarEspacio(espacio, c, p);};
 
             guerrafin = cont.comprobarLuchaSigue();
 

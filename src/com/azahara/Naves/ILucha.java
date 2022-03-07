@@ -1,5 +1,5 @@
 package com.azahara.Naves;
 
 public interface ILucha {
-    public boolean luchar();
+    public boolean lucha(Nave n2);
 }

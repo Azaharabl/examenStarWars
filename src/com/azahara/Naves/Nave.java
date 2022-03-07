@@ -42,4 +42,6 @@ public abstract class Nave {
     public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
+
+
 }

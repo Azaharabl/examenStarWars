@@ -40,13 +40,14 @@ public class Corellian extends Nave implements ILucha, ITransporte{
         this.rayoTractor = rayoTractor;
     }
 
-    @Override
-    public boolean luchar() {
-        return false;
-    }
 
     @Override
     public void transportoPasajeros() {
+        System.out.println("transporto pasabjertos por que soy de transporte");
+    }
+
+    @Override
+    public boolean lucha(Nave n2) {
 
     }
 }

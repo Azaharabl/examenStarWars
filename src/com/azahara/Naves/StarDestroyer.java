@@ -34,7 +34,21 @@ public class StarDestroyer extends Nave implements ILucha{
     }
 
     @Override
-    public boolean luchar() {
-        return false;
+    public boolean lucha(Nave n2) {
+        //si gana la lucha devuelve true , si no devuelve false
+        if (n2 instanceof StarDestroyer){
+            int torpedosN= this.torpedosProtonicos;
+            int torpedoN2 = n2.getTorpedosProtonicos();
+
+            if (torpedosN>=torpedoN2){
+                return true;
+
+            }else{
+                return false;
+
+            }
+
+
+        }
     }
 }
